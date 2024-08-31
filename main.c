@@ -31,7 +31,7 @@ int main(int argc, char * * argv)
   //   return 1;
   // }
 
-  print("%d",argc);
+  printf("%d",argc);
   for (int i = 0; i < argc; i++) {
         printf("%s\n", argv[i]);
   }
