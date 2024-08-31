@@ -35,7 +35,6 @@ int main(int argc, char * * argv)
 
   int input;
 
-  printf("input: ");
   scanf("%d", &input);
 
   // determine optimal distribution 
