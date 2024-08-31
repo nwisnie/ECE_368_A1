@@ -1,27 +1,36 @@
 #include <stdio.h>  
 #include <stdlib.h>
 
-// I'm putting the recursion function in the main file because I don't feel like making a second file
-// Cry about it
-// void recur(int q, int d, int n, int p)
-// {
+void print_combination(int q, int d, int n, int p) 
+{
+  printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n", q, d, n, p);
+}
 
-//   printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+void print_combs(int cents) 
+{
+  int i, j;
+  int max_q = cents / 25;
 
-//   if(n)
-//   {
-//     recur(q,d,n-1,p+5);
-//   }
-//   else if(d)
-//   {
-//     recur(q,d-1,n+2,p);
-//   }
-//   else if(q)
-//   {
-//     recur(q-1,d+2,n+1,p);
-//   }
+  for (i = max_q; i >= 0; i--) 
+  {
+    int no_q = cents - i * 25;
+    int max_d = no_q / 10;
 
-// }
+    for (j = max_d; j >= 0; j--) 
+    {
+      int no_d = no_q - j * 10;
+      int max_n = no_d / 5;
+
+      for (int k = max_n; k >= 0; k--) 
+      {
+        int no_n = no_d - k * 5;
+        int p = no_n;
+
+        print_combination(i, j, k, p);
+      }
+    }
+  }
+}
 
 int main(int argc, char * * argv)
 {
@@ -37,97 +46,101 @@ int main(int argc, char * * argv)
 
   scanf("%d", &input);
 
-  // determine optimal distribution 
-  // put in variables because I don't feel like using array in recursion
-  int q = 0;
-  int d = 0;
-  int n = 0;
-  int p = 0;
-
-  while(input >= 25) // dumb implementation because I'm lazy
-  {
-    input -= 25;
-    q += 1;
-  }
-  while(input >= 10)
-  {
-    input -= 10;
-    d += 1;
-  }
-  while(input >= 5)
-  {
-    input -= 5;
-    n += 1;
-  }
-  while(input >= 1)
-  {
-    input -= 1;
-    n += 1;
-  }
-
-  // recur(q,d,n,p);
-  // essentially just a downcounter
-  printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-  while(q > 0 || d > 0 || n > 0)
-  {
-    if(n) // count nickles
-    {
-      n -= 1;
-      p += 5;
-      printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-      if(n == 0 && d > 0)
-      {
-        d -= 1;
-        n += 2;
-        while(p >= 5)
-        {
-          p -= 5;
-          n += 1;
-        }
-        printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-      }
-    }
-    else if(d)
-    {
-      d -= 1;
-      n += 2;
-      printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-      if(d == 0 && q > 0)
-      {
-        q -= 1;
-        d += 2;
-        n += 1;
-        while(p >= 5)
-        {
-          p -= 5;
-          n += 1;
-        }
-        while(n >= 2)
-        {
-          n -= 2;
-          d += 1;
-        }
-        printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-      }
-    }
-    else if(q)
-    {
-      q -= 1;
-      d += 2;
-      n += 1;
-      while(p >= 5)
-      {
-        p -= 5;
-        n += 1;
-      }
-      while(n >= 2)
-      {
-        n -= 2;
-        d += 1;
-      }
-      printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
-    }
-  }
+  print_combs(input);
 
   return 0;
+
+  // determine optimal distribution 
+  // put in variables because I don't feel like using array in recursion
+  // int q = 0;
+  // int d = 0;
+  // int n = 0;
+  // int p = 0;
+
+  // while(input >= 25) // dumb implementation because I'm lazy
+  // {
+  //   input -= 25;
+  //   q += 1;
+  // }
+  // while(input >= 10)
+  // {
+  //   input -= 10;
+  //   d += 1;
+  // }
+  // while(input >= 5)
+  // {
+  //   input -= 5;
+  //   n += 1;
+  // }
+  // while(input >= 1)
+  // {
+  //   input -= 1;
+  //   n += 1;
+  // }
+
+  // // recur(q,d,n,p);
+  // // essentially just a downcounter
+  // printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  // while(q > 0 || d > 0 || n > 0)
+  // {
+  //   if(n) // count nickles
+  //   {
+  //     n -= 1;
+  //     p += 5;
+  //     printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  //     if(n == 0 && d > 0)
+  //     {
+  //       d -= 1;
+  //       n += 2;
+  //       while(p >= 5)
+  //       {
+  //         p -= 5;
+  //         n += 1;
+  //       }
+  //       printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  //     }
+  //   }
+  //   else if(d)
+  //   {
+  //     d -= 1;
+  //     n += 2;
+  //     printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  //     if(d == 0 && q > 0)
+  //     {
+  //       q -= 1;
+  //       d += 2;
+  //       n += 1;
+  //       while(p >= 5)
+  //       {
+  //         p -= 5;
+  //         n += 1;
+  //       }
+  //       while(n >= 2)
+  //       {
+  //         n -= 2;
+  //         d += 1;
+  //       }
+  //       printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  //     }
+  //   }
+  //   else if(q)
+  //   {
+  //     q -= 1;
+  //     d += 2;
+  //     n += 1;
+  //     while(p >= 5)
+  //     {
+  //       p -= 5;
+  //       n += 1;
+  //     }
+  //     while(n >= 2)
+  //     {
+  //       n -= 2;
+  //       d += 1;
+  //     }
+  //     printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+  //   }
+  // }
+
+  // return 0;
 }
