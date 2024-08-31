@@ -31,45 +31,41 @@ int main(int argc, char * * argv)
   //   return 1;
   // }
 
-  printf("%d",argc);
-  for (int i = 0; i < argc; i++) {
-        printf("%s\n", argv[i]);
+  // int input = atoi(argv[1]); // converts input to int
+
+  int input;
+
+  scanf("%d", &input);
+
+  // determine optimal distribution 
+  // put in variables because I don't feel like using array in recursion
+  int q = 0;
+  int d = 0;
+  int n = 0;
+  int p = 0;
+
+  while(input >= 25) // dumb implementation because I'm lazy
+  {
+    input -= 25;
+    q += 1;
   }
+  while(input >= 10)
+  {
+    input -= 10;
+    d += 1;
+  }
+  while(input >= 5)
+  {
+    input -= 5;
+    n += 1;
+  }
+  while(input >= 1)
+  {
+    input -= 1;
+    n += 1;
+  }
+
+  recur(q,d,n,p);
 
   return 0;
 }
-
-//   int input = atoi(argv[1]); // converts input to int
-
-//   // determine optimal distribution 
-//   // put in variables because I don't feel like using array in recursion
-//   int q = 0;
-//   int d = 0;
-//   int n = 0;
-//   int p = 0;
-
-//   while(input >= 25) // dumb implementation because I'm lazy
-//   {
-//     input -= 25;
-//     q += 1;
-//   }
-//   while(input >= 10)
-//   {
-//     input -= 10;
-//     d += 1;
-//   }
-//   while(input >= 5)
-//   {
-//     input -= 5;
-//     n += 1;
-//   }
-//   while(input >= 1)
-//   {
-//     input -= 1;
-//     n += 1;
-//   }
-
-//   recur(q,d,n,p);
-
-//   return 0;
-// }
