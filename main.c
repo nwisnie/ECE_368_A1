@@ -92,12 +92,39 @@ int main(int argc, char * * argv)
       d -= 1;
       n += 2;
       printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+      if(d == 0 && q > 0)
+      {
+        q -= 1;
+        d += 2;
+        n += 1;
+        while(p >= 5)
+        {
+          p -= 5;
+          n += 1;
+        }
+        while(n >= 2)
+        {
+          n -= 2;
+          d += 1;
+        }
+        printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
+      }
     }
-    else if(d == 0)
+    else if(q)
     {
       q -= 1;
       d += 2;
       n += 1;
+      while(p >= 5)
+      {
+        p -= 5;
+        n += 1;
+      }
+      while(n >= 2)
+      {
+        n -= 2;
+        d += 1;
+      }
       printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n",q,d,n,p);
     }
   }
