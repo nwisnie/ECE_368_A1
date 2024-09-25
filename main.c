@@ -1,41 +1,107 @@
 #include <stdio.h>  
 #include <stdlib.h>
+#include <string.h>
 
-void output(int q, int d, int n, int p) 
-{
-  printf("%d quarter(s), %d dime(s), %d nickel(s), %d pennie(s)\n", q, d, n, p);
-}
+typedef struct node {
+  int val;
+  struct node* next;
+} list_node;
 
-// running triple for loop for mediocre efficiency
-void print_combs(int total) 
-{
-  int max_q = total / 25;
+void addNode(int add, list_node** head) { // does this work when head is not initially defined?
+  list_node* new = (list_node*)malloc(sizeof(list_node));
+  new -> val = add;
+  new -> next = NULL;
 
-  for (int q = max_q; q >= 0; q--) 
-  {
-    int no_q = total - q * 25;
-    int max_d = no_q / 10;
-
-    for (int d = max_d; d >= 0; d--) 
-    {
-      int no_d = no_q - d * 10;
-      int max_n = no_d / 5;
-
-      for (int n = max_n; n >= 0; n--) 
-      {
-        int no_n = no_d - n * 5;
-        int p = no_n;
-
-        output(q, d, n, p);
-      }
-    }
+  if (*head == NULL) {
+    *head = new;
+    return;
   }
+
+  new->val = add;
+  new->next = *head;
+  *head = new;
 }
+
+void delNode(int del, list_node** head) {
+  list_node* temp = *head;
+  list_node* prev = NULL;
+
+  if (temp != NULL && temp->val == del) {
+    *head = temp->next;
+    free(temp);
+    return;
+  }
+
+  while (temp != NULL && temp->val != del) {
+      prev = temp;
+      temp = temp->next;
+  }
+
+  if (temp == NULL) {
+    return;
+  }
+
+  prev->next = temp->next;
+  free(temp);
+
+}
+
+void replNode(int repl, list_node** head) {
+  list_node* temp = *head;
+
+  if (temp != NULL && temp->val == repl) {
+    return;
+  }
+
+  int store = temp->val;
+
+  while (temp != NULL && temp->val != repl) {
+      temp = temp->next;
+  }
+
+  if (temp == NULL) {
+    return;
+  }
+
+  (*head)->val = repl;
+  temp->val = store;
+}
+
+// void printList(list_node* head) {
+//   printf("[ ");
+//   while(head != NULL) {
+//     printf("%d ",head->val);
+//     head = head->next;
+//   }
+//   printf("]\n");
+// }
 
 int main(int argc, char * * argv)
 {
-  int input;
-  scanf("%d", &input);
-  print_combs(input);
-  return 0;
+  char input[100];
+  char command[20];
+  list_node* head = NULL;
+  int ins = 0;
+
+  while(1) {
+    fgets(input,sizeof(input),stdin);
+    sscanf(input,"%s %d",command,&ins);
+
+    if(strcmp("open",command) == 0) {
+      addNode(ins, &head);
+    }
+    else if (strcmp("switch",command) == 0) {
+      replNode(ins, &head);
+    }
+    else if (strcmp("close",command) == 0) {
+      delNode(ins, &head);
+    }
+
+    if(head != NULL){
+      printf("%d\n",head->val);
+    } 
+    else {
+      return 0;
+    }
+  }
 }
