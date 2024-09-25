@@ -82,12 +82,12 @@ int main(int argc, char * * argv)
   list_node* head = NULL;
   int ins = 0;
 
-  printf("1\n");
-  return 0;
-
   while(1) {
     // fgets(input,sizeof(input),stdin);
     // sscanf(input,"%s %d",command,&ins);
+
+    printf("please\n");
+    return 0;
     scanf("%s %d",command,&ins);
 
     if(strcmp("open",command) == 0) {
