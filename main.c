@@ -78,14 +78,14 @@ void replNode(int repl, list_node** head) {
 
 int main(int argc, char * * argv)
 {
-  char input[100];
-  char command[20];
+  char command[8];
   list_node* head = NULL;
   int ins = 0;
 
   while(1) {
-    fgets(input,sizeof(input),stdin);
-    sscanf(input,"%s %d",command,&ins);
+    // fgets(input,sizeof(input),stdin);
+    // sscanf(input,"%s %d",command,&ins);
+    scanf("%s %d",command,&ins);
 
     if(strcmp("open",command) == 0) {
       addNode(ins, &head);
